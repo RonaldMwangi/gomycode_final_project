@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+/* Base page styling (helps ensure landing/login is always visible) */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+#root {
+  min-height: 100%;
+}
