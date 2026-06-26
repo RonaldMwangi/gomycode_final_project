@@ -10,8 +10,18 @@ config()
 const app = express()
 const port = Number(process.env.PORT ?? 5000)
 
-app.use(cors())
+// Configure CORS explicitly so the browser can call the API from the frontend origin.
+// Uses CORS_ORIGIN from server/.env (fallback to localhost dev).
+const corsOrigin = process.env.CORS_ORIGIN ?? 'http://localhost:5173'
+app.use(
+  cors({
+    origin: corsOrigin,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  })
+)
 app.use(express.json())
+
 
 app.get('/', (req, res) => {
   res.json({
