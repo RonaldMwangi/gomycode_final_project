@@ -1,1 +1,1 @@
-{"root":["./src/app.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/components/authpanel.tsx","./src/components/taskform.tsx","./src/components/tasklist.tsx","./src/lib/api.ts","./src/lib/storage.ts","./src/types/api.ts"],"version":"6.0.3"}
+{"root":["./src/app.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/components/authpanel.tsx","./src/components/taskform.tsx","./src/components/tasklist.tsx","./src/components/ui/glasscard.tsx","./src/components/ui/pageshell.tsx","./src/lib/api.ts","./src/lib/storage.ts","./src/types/api.ts"],"version":"6.0.3"}
