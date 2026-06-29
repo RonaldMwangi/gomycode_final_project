@@ -1,9 +1,10 @@
 import type { AuthResponse, Task, TasksResponse } from '../types/api'
 
-const apiUrl = (import.meta.env.VITE_API_URL ?? 'http://localhost:5000').replace(/\/$/, '')
+const apiBase = (import.meta.env.VITE_API_URL ?? '').replace(/\/$/, '')
+const api = (path: string) => (apiBase ? `${apiBase}${path}` : path)
 
 export function getHealthUrl() {
-  return `${apiUrl}/health`
+  return api('/health')
 }
 
 export async function signup(payload: {
@@ -11,7 +12,7 @@ export async function signup(payload: {
   email: string
   password: string
 }) {
-  const res = await fetch(`${apiUrl}/api/auth/signup`, {
+  const res = await fetch(api('/api/auth/signup'), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
@@ -29,7 +30,7 @@ export async function login(payload: {
   email: string
   password: string
 }) {
-  const res = await fetch(`${apiUrl}/api/auth/login`, {
+  const res = await fetch(api('/api/auth/login'), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
@@ -44,7 +45,7 @@ export async function login(payload: {
 }
 
 export async function listTasks(token: string) {
-  const res = await fetch(`${apiUrl}/api/tasks`, {
+  const res = await fetch(api('/api/tasks'), {
     headers: { Authorization: `Bearer ${token}` },
   })
 
@@ -63,7 +64,7 @@ export async function createTask(token: string, payload: {
   status?: 'todo' | 'in_progress' | 'completed'
   priority?: number
 }) {
-  const res = await fetch(`${apiUrl}/api/tasks`, {
+  const res = await fetch(api('/api/tasks'), {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -88,7 +89,7 @@ export async function updateTask(token: string, id: string, payload: {
   status?: 'todo' | 'in_progress' | 'completed'
   priority?: number
 }) {
-  const res = await fetch(`${apiUrl}/api/tasks/${id}`, {
+  const res = await fetch(api(`/api/tasks/${id}`), {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -107,7 +108,7 @@ export async function updateTask(token: string, id: string, payload: {
 }
 
 export async function deleteTask(token: string, id: string) {
-  const res = await fetch(`${apiUrl}/api/tasks/${id}`, {
+  const res = await fetch(api(`/api/tasks/${id}`), {
     method: 'DELETE',
     headers: { Authorization: `Bearer ${token}` },
   })
