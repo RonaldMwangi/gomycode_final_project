@@ -12,7 +12,9 @@ const port = Number(process.env.PORT ?? 5000)
 
 // Configure CORS explicitly so the browser can call the API from the frontend origin.
 // Uses CORS_ORIGIN from server/.env (fallback to localhost dev).
-const corsOrigin = process.env.CORS_ORIGIN ?? '*'
+// Comma-separate multiple origins, e.g. "http://localhost:5173,https://example.com"
+const corsOriginRaw = process.env.CORS_ORIGIN ?? '*'
+const corsOrigin = corsOriginRaw === '*' ? '*' : corsOriginRaw.split(',').map((s) => s.trim())
 // If you set CORS_ORIGIN in .env, it must exactly match the frontend origin (including scheme/port).
 // For local dev, '*' is the safest option.
 app.use(
@@ -20,8 +22,7 @@ app.use(
     origin: corsOrigin,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
-  })
-)
+  }))
 app.use(express.json())
 
 

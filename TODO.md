@@ -17,6 +17,9 @@
 
 ## Step 2: Deployment + final testing
 
-- [ ] Fix Vercel build error: missing `@tailwindcss/vite` in `client/package.json`
-- [ ] Re-run `npm install` and `npm run build` locally
-- [ ] Re-run Vercel build to confirm client build passes
+- [ ] Set Vercel environment variables:
+- [ ]   **Client** (`gomycode-final-project-client`): `VITE_API_URL=https://gomycode-final-project-server.vercel.app`
+- [ ]   **Server** (`gomycode-final-project-server`): `CORS_ORIGIN=http://localhost:5173,https://gomycode-final-project-client.vercel.app`
+- [ ] Trigger redeploy on both projects
+- [ ] Test login/signup on `https://gomycode-final-project-client.vercel.app/`
+- [ ] Verify network calls hit the server without CORS errors

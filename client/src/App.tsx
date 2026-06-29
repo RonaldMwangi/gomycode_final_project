@@ -230,6 +230,56 @@ export default function App() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-1">
+          {/* Productivity Dashboard (computed from loaded tasks; no backend changes) */}
+          <GlassCard title="Productivity">
+            {(() => {
+              const total = tasks.length
+              const completed = tasks.filter((t) => (t.status ?? 'todo') === 'completed').length
+              const pending = total - completed
+              const today = new Date()
+              today.setHours(0, 0, 0, 0)
+              const overdue = tasks.filter((t) => {
+                if ((t.status ?? 'todo') === 'completed') return false
+                if (!t.deadline) return false
+                const d = new Date(t.deadline)
+                d.setHours(0, 0, 0, 0)
+                return d.getTime() < today.getTime()
+              }).length
+              const completionRate = total ? Math.round((completed / total) * 100) : 0
+
+              return (
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="rounded-2xl bg-white/5 border border-white/10 p-4">
+                    <div className="text-xs font-bold text-white/60">Total Tasks</div>
+                    <div className="mt-1 text-2xl font-extrabold text-white">{total}</div>
+                  </div>
+                  <div className="rounded-2xl bg-white/5 border border-white/10 p-4">
+                    <div className="text-xs font-bold text-white/60">Completion Rate</div>
+                    <div className="mt-1 text-2xl font-extrabold text-amber-200">{completionRate}%</div>
+                  </div>
+
+                  <div className="rounded-2xl bg-white/5 border border-white/10 p-4">
+                    <div className="text-xs font-bold text-white/60">Completed</div>
+                    <div className="mt-1 text-2xl font-extrabold text-emerald-200">{completed}</div>
+                  </div>
+                  <div className="rounded-2xl bg-white/5 border border-white/10 p-4">
+                    <div className="text-xs font-bold text-white/60">Pending</div>
+                    <div className="mt-1 text-2xl font-extrabold text-fuchsia-200">{pending}</div>
+                  </div>
+
+                  <div className="col-span-2 rounded-2xl bg-white/5 border border-white/10 p-4">
+                    <div className="text-xs font-bold text-white/60">Overdue</div>
+                    <div className="mt-1 text-2xl font-extrabold text-red-200">{overdue}</div>
+                    <div className="mt-2 text-xs text-white/70">
+                      Tasks with a past deadline and status not completed.
+                    </div>
+                  </div>
+                </div>
+              )
+            })()}
+          </GlassCard>
+
+          <div className="mt-6" />
           <TaskForm onCreate={handleCreate} />
 
           <GlassCard title="Filters">
