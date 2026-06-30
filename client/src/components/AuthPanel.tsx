@@ -71,7 +71,7 @@ export default function AuthPanel({
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             className="mt-1 w-full rounded-xl px-3 py-2 bg-white/10 border border-white/15 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-fuchsia-400/70"
-                            placeholder="Alex"
+                            placeholder="Ronald"
                             autoComplete="name"
                         />
                     </label>
@@ -83,7 +83,7 @@ export default function AuthPanel({
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         className="mt-1 w-full rounded-xl px-3 py-2 bg-white/10 border border-white/15 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-fuchsia-400/70"
-                        placeholder="alex@example.com"
+                        placeholder="ronald@example.com"
                         autoComplete="email"
                         type="email"
                         required
